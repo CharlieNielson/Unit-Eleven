@@ -13,7 +13,7 @@ int main() {
     //b.display();
 
     bool gameEnd = false;
-    string winner;
+    string winner = "literaly nobody... How have you tied?";
 
     while (gameEnd == false) {
 
@@ -23,7 +23,9 @@ int main() {
         cout << "Player one's turn." << endl;
         p.play(p.menu(p.mark1), p.mark1, true);
         gameEnd = p.hasWon(p.mark1);
-        winner = "Player One.";
+        if (p.hasWon(p.mark1)) {
+            winner = "Player One.";
+        }
         system("clear");
 
         if (gameEnd == false) {
@@ -33,14 +35,17 @@ int main() {
             cout << "Player two's turn." << endl;
             p.play(p.menu(p.mark2), p.mark2, true);
             gameEnd = p.hasWon(p.mark2);
-            winner = "Player Two.";
+            if (p.hasWon(p.mark2)) {
+                winner = "Player Two.";
+            }
+            gameEnd = p.antiSoftLock(gameEnd);
             system("clear");
         }
     }
     
     cout << "Game End." << endl;
     p.display();
-    cout << "Game over! Winner is " << winner;
+    cout << "Game over! Winner is " << winner << endl;
 
 
     return 17;
