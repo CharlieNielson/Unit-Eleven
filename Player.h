@@ -11,6 +11,7 @@ class Player : public Board {
         int menu(string);// Player choice thing. I'm not programming a computer right now, I know how difficult that would be. It would literaly double my work.
         void display();// Runs the Board class's display function.
         void play(int, string, bool);// Runs the Board class's play function.
+        bool antiSoftLock(bool);// Returns true if the entire board is full.
 
     //private:
         string mark1, mark2;// The mark that is put on the board by the players.
@@ -130,7 +131,7 @@ bool Player::hasWon(string mark) {
     return end;
 }
 
-int Player::menu(string mark) {
+int Player::menu(string mark) {// Player menu.
     int end = 0;
     bool ender = true;
     while(ender) {
@@ -140,7 +141,7 @@ int Player::menu(string mark) {
         if(end < 0 || end > 5) {
             cout << "Not a valid number. Try again." << endl;
         }else if (Board::play(end, mark, false)) {
-            cout << "Not a valid input. Try again." << endl;
+            cout << "";
         } else {
             ender = false;
         }
@@ -154,4 +155,16 @@ void Player::display() {
 
 void Player::play(int q, string s, bool b) {
     Board::play(q, s, b);
+}
+
+bool Player::antiSoftLock(bool fault) {// An anti soft lock.
+    bool end = true;
+    for (int i = 0; i <= 5; i++) {
+        for (int j = 0; j <= 5; j++) {
+            if (game[i][j] == "_") {
+                end = fault;
+            }
+        }
+    }
+    return end;
 }
