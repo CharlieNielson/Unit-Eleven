@@ -7,10 +7,11 @@ class Board {
         Board();// Constructer.
         void display();// Displays the board.
         void format();// Updates game1 to match game.
+        bool play(int, string, bool);// Places the mark in the board.
 
     protected:
         // The first number is the y, with the bottom row being 0.
-        // The second is the column, with the leftmost one being 0.
+        // The second is the x, with the leftmost column being 0.
         string game[6][6];// The board.
         string game1[6][6];// Alternate formatting of the board for ease of checking the win condition.
 
@@ -33,7 +34,7 @@ Board::Board() {
 }
 
 void Board::display() {
-    cout << "The board as it stands: " << endl;
+    //cout << "The board as it stands: " << endl;
     for (int i = 5; i >= 0; i--) {
         cout << "|";
         for (int j = 0; j < 6; j++) {
@@ -41,6 +42,12 @@ void Board::display() {
         }
         cout << endl;
     }
+
+    for (int i = 1; i < 7; i++) {
+        cout << "/" << i;
+    }
+    cout << "/" << endl;
+    //cout << "debug";
 }
 
 void Board::format() {
@@ -49,4 +56,27 @@ void Board::format() {
             game1[i][j] = game[j][i];
         }
     }
+}
+
+bool Board::play(int column, string mark, bool change) {
+    bool end = true;
+    bool ender = false;
+    int row = 0;
+    while (ender == false) {
+        if (game[row][column] == "_") {
+            if (change) {
+                game[row][column] = mark;
+            }
+            ender = true;
+            end = false;
+        } else {
+            row++;
+            if (row > 5) {
+                cout << "Sorry, column was full. Try again." << endl;
+                end = true;
+                ender = true;
+            }
+        }
+    }
+    return end;
 }
